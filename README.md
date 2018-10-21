@@ -14,3 +14,5 @@ https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition/data
 Before running python program, you have to install tensorflow, matpoltlib and PIL
 If you have problem with installing PIL(Maybe due to the version of python), you can install pillow-PIL. This can also work in this project.
 
+Run training.py to train the modle.
+Run evaluate.py to test the modle.

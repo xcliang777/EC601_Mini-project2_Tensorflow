@@ -6,7 +6,7 @@ Purpose
 This project use tensorflow to recognize two different classes of objects.
 Also use matplotlib to display pictures.
 
-Dataset used to train and test my module is from Kaggle. 
+Dataset used to train and test my module is from Kaggle.(Since the dataset is too big so I do not upload it to github) 
 https://www.kaggle.com/c/dogs-vs-cats-redux-kernels-edition/data
 
 

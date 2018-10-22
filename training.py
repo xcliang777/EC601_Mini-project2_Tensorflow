@@ -6,13 +6,13 @@ import tensorflow as tf
 import input_data
 import model
 
-N_CLASSES = 2  # 2个输出神经元，［1，0］ 或者 ［0，1］猫和狗的概率
-IMG_W = 208  # 重新定义图片的大小，图片如果过大则训练比较慢
+N_CLASSES = 2  # Probability of 2 output neurons, [1,0] or [0,1] cats and dogs
+IMG_W = 208  # Redefine the size of the image. If the image is too large, the training will be slow.
 IMG_H = 208
-BATCH_SIZE = 32  # 每批数据的大小
+BATCH_SIZE = 32  # Size of each batch of data
 CAPACITY = 256
-MAX_STEP = 15000  # 训练的步数，应当 >= 10000
-learning_rate = 0.0001  # 学习率，建议刚开始的 learning_rate <= 0.0001
+MAX_STEP = 15000  # The number of steps to be trained should be >= 10000
+learning_rate = 0.0001  # Learning rate
 
 
 def run_training():
@@ -21,27 +21,27 @@ def run_training():
     # logs_train_dir  store the data of the process of training model, view in tensorbpard
     logs_train_dir = '/Users/xcliang/PycharmProjects/cats_vs_dogs/data/saveNet'
 
-    # 获取图片和标签集
+    # Get images and tag sets
     train, train_label = input_data.get_files(train_dir)
-    # 生成批次
+    # Generate batch
     train_batch, train_label_batch = input_data.get_batch(train,
                                                           train_label,
                                                           IMG_W,
                                                           IMG_H,
                                                           BATCH_SIZE,
                                                           CAPACITY)
-    # 进入模型
+    # Entering the model
     train_logits = model.inference(train_batch, BATCH_SIZE, N_CLASSES)
-    # 获取 loss
+    # Get loss
     train_loss = model.losses(train_logits, train_label_batch)
-    # 训练
+    # train
     train_op = model.trainning(train_loss, learning_rate)
-    # 获取准确率
+    # Get accuracy
     train__acc = model.evaluation(train_logits, train_label_batch)
-    # 合并 summary
+    # merge summary
     summary_op = tf.summary.merge_all()
     sess = tf.Session()
-    # 保存summary
+    # save summary
     train_writer = tf.summary.FileWriter(logs_train_dir, sess.graph)
     saver = tf.train.Saver()
 
@@ -61,7 +61,7 @@ def run_training():
                 train_writer.add_summary(summary_str, step)
 
             if step % 2000 == 0 or (step + 1) == MAX_STEP:
-                # 每隔2000步保存一下模型，模型保存在 checkpoint_path 中
+                # Save the model every 2000 steps and save the model in checkpoint_path
                 checkpoint_path = os.path.join(logs_train_dir, 'model.ckpt')
                 saver.save(sess, checkpoint_path, global_step=step)
 
